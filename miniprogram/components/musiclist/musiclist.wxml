@@ -1,0 +1,15 @@
+<block wx:for="{{musiclist}}" wx:key="id">
+  <!-- data-musicid 自定义别名 有这个才能获取到currentTarget里面的id  data-index 用来歌单信息存Storage后方便用index取出来-->
+  <view class="musiclist-container {{item.id === playingId ? 'playing': ''}}" bind:tap="onSelect" data-musicid="{{item.id}}" data-index="{{index}}">
+    <view class="musiclist-index">{{index+1}}</view>
+    <view class="musiclist-info">
+      <view class="musiclist-name">
+        {{item.name}}
+        <!-- 有无别名 -->
+        <text class="musiclist-alia">{{item.alia.length==0?"":item.alia[0]}}</text>
+      </view>
+      <!-- 歌手信息 -->
+      <view class="musiclist-singer">{{item.ar[0].name}} - {{item.al.name}}</view>
+    </view>
+  </view>
+</block>

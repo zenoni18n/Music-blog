@@ -1,0 +1,18 @@
+<!--components/progress-bar/progress-bar.wxml-->
+<view class="container">
+  <text class="time">{{showTime.currentTime}}</text>
+  <view class="control">
+  <!-- 可移动区域  movable-view(进度圆点)必须是movable-area(进度区域) 的子-->
+    <movable-area class="movable-area">
+    <!--direction方向 daming拖动灵敏度 x移动距离 -->
+      <movable-view direction="horizontal" class="movable-view"
+        damping="1000" x="{{movableDis}}" bindchange="onChange"
+        bindtouchend="onTouchEnd"
+      />
+    </movable-area>
+    <!-- 进度条粗细stroke-width  activeColor移动后前面的颜色  percent移动距离-->
+    <progress stroke-width="4" backgroundColor="#969696"
+    activeColor="#fff" percent="{{progress}}"></progress>
+  </view>
+  <text class="time">{{showTime.totalTime}}</text>
+</view>
