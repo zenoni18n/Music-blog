@@ -41,6 +41,12 @@ exports.main = async (event, context) => {
       return res
     })
   })
+// 封装请求歌词 player.js里面传
+  app.router('lyric', async(ctx, next) => {
+    ctx.body = await rp(BASE_URL + `/lyric?id=${event.musicId}`).then((res) => {
+      return res
+    })
+  })
   // 必须返回服务
   return app.serve()
   

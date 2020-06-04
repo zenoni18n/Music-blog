@@ -1,4 +1,6 @@
 // components/musiclist/musiclist.js
+// 获取全局
+const app =getApp()
 Component({
   /**
    * 组件的属性列表
@@ -15,10 +17,18 @@ Component({
     // 初始化，方便在wxml里面判断，达到选择后变红效果
     playingId: -1
   },
+  // 页面的生命周期
+  pageLifetimes: {
+    // 页面显示的时候
+    show () {
+      this.setData({
+        // 调用全局中getPlayMusicId方法取到id
+        // !parseInt解决bug, pages里的musicilist.js传过来是String类型，所以在wxml比较的时候会冲突，不高亮，所以要转换
+        playingId: parseInt(app.getPlayMusicId())
+      })
 
-  /**
-   * 组件的方法列表
-   */
+    }
+  },
   methods: {
     onSelect(event){
  // 事件源 事件处理函数 事件对象 事件类型

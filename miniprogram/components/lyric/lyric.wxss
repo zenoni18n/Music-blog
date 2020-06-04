@@ -1,0 +1,19 @@
+.lyric-scroll {
+  width: 100%;
+  height: 70%;
+  color: #ccc;
+  font-size: 32rpx;
+}
+
+.lyric-panel {
+  position: relative;
+  top: 50%;
+}
+
+.lyric {
+  min-height: 64rpx;
+}
+
+.hightlight-lyric {
+  color: #d43c33;
+}

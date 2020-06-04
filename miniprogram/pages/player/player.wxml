@@ -3,17 +3,19 @@
 <view class="player-mask"></view>
 
 <view class="player-info">
-  <!-- 封面信息 -->
+  <!-- 封面信息 onChangeLyricShow显示歌词  hidden隐藏或显示 wx:if也可以，但是性能消耗大，要频繁切换用hidden-->
   <view class="player-disc {{isPlaying?'play': ''}}" bind:tap="onChangeLyricShow" hidden="{{isLyricShow}}">
       <!-- 停止就停止旋转 -->
     <image class="player-img rotation {{isPlaying?'':'rotation-paused'}}" src="{{picUrl}}"></image>
   </view>
 
-  <!-- 歌词 -->
+  <!-- 歌词 isLyricShow传到组件lyric 取反是因为如果封面显示，歌词页面就不显示，反之亦然 onChangeLyricShow点击取反回到封面页面-->
+  <!-- 把歌词信息lyric传给lyric组件 -->
   <x-lyric class="lyric" isLyricShow="{{!isLyricShow}}" bind:tap="onChangeLyricShow" lyric="{{lyric}}" />
 
   <!-- 进度条 -->
   <view class="progress-bar">
+  <!-- 接收组件progress-bar里的timeUpdate带来的播放时间 并去定义方法timeUpdate  bind:musicPlay和musicPause用来控制面板控制isplaying-->
     <x-progress-bar bind:musicEnd="onNext" bind:timeUpdate="timeUpdate" bind:musicPlay="onPlay" bind:musicPause="onPause" isSame="{{isSame}}" />
   </view>
 

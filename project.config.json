@@ -46,9 +46,9 @@
 				},
 				{
 					"id": 1,
-					"name": "musicilist",
-					"pathName": "pages/musiclist/musiclist",
-					"query": "playlistId=2827522040",
+					"name": "pages/blog-edit/blog-edit",
+					"pathName": "pages/blog/blog",
+					"query": "",
 					"scene": null
 				}
 			]

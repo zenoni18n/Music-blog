@@ -1,0 +1,26 @@
+<view class="blog">
+  <view class="blog-title">
+  <!-- 头像 -->
+    <image class="blog-portrait" src="{{blog.avatarUrl}}"></image>
+    <view class="blog-box">
+    <!-- 名字 -->
+      <view class="blog-nickName">{{blog.nickName}}</view>
+      <!-- 时间 -->
+      <view class="blog-time">{{_createTime}}</view>
+    </view>
+  </view>
+  <view class="blog-content">{{blog.content}}</view>
+  <view class="blog-img">
+    <block wx:for="{{blog.img}}" wx:key="{{index}}">
+    <!-- catch:tap="onPreviewImage" 绑定事件会阻止冒泡 -->
+    <!-- data-imgsrc="{{item}}" data-imgs="{{blog.img}}"都是自定义事件，js中用imgsrc和imgs -->
+      <image 
+      class="img" 
+      src="{{item}}" 
+      mode="aspectFill" 
+      catch:tap="onPreviewImage" 
+      data-imgsrc="{{item}}" 
+      data-imgs="{{blog.img}}"></image>
+    </block>
+  </view>
+</view>

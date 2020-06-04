@@ -15,6 +15,16 @@ App({
       })
     }
 
-    this.globalData = {}
-  }
+    this.globalData = {
+      playingMusicId: -1,
+    }
+  },
+  // 用来设置当前播放歌的id 列表中高亮 防止上一首下一首歌单列表高亮没变化
+  setPlayMusicId(musicId) {
+    this.globalData.playingMusicId = musicId
+  },
+  
+  getPlayMusicId() {
+    return this.globalData.playingMusicId
+  },
 })

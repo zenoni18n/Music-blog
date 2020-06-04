@@ -6,6 +6,8 @@ let musiclist = []
 let nowPlayingIndex = 0
 // 获取全局唯一的背景音频管理器
 const backgroundAudioManager = wx.getBackgroundAudioManager()
+// 获取全局
+const app=getApp()
 Page({
 
   /**
@@ -14,6 +16,9 @@ Page({
   data: {
     picUrl: '',
     isPlaying: false, // false表示不播放，true表示正在播放
+    isLyricShow: false, //表示当前歌词是否显示
+    lyric: '',
+    isSame: false, // 表示是否为同一首歌
   },
 
   /**
@@ -29,8 +34,21 @@ Page({
     this._loadMusicDetail(options.musicId)
       },
   _loadMusicDetail(musicId){
-    // 切换下一首上一首时候调用方法把歌停止播放
-    backgroundAudioManager.stop()
+    // 判断传入的id和全局的id是否一样，一样就表示播放相同歌曲 会继续播放
+      if (musicId == app.getPlayMusicId()) {
+        this.setData({
+          isSame: true
+        })
+      } else {
+        this.setData({
+          isSame: false
+        })
+      }
+    if (!this.data.isSame) {
+       // 切换下一首上一首时候调用方法把歌停止播放
+      backgroundAudioManager.stop()
+    }
+
     let music = musiclist[nowPlayingIndex]
     console.log(music)
     // 设置标题
@@ -43,6 +61,8 @@ Page({
       // 刚进来状态不播放
       isPlaying: false,
     })
+    // 调用全局函数setPlayMusicId设置歌曲的id
+    app.setPlayMusicId(musicId)
     // 提示
     wx.showLoading({
       title: '歌曲加载中',
@@ -58,23 +78,84 @@ Page({
       console.log(res)
       console.log(JSON.parse(res.result))
       let result = JSON.parse(res.result)
-      // 退出小程序是否在后台播放  在全局json中设置 "requiredBackgroundModes": [ "audio"] 就不会报错
+      // 为null说明是vip歌曲，播放不了，所以要设置
+      if (result.data[0].url == null) {
+        wx.showToast({
+          title: '无权限播放',
+        })
+        return
+      }
+      if (!this.data.isSame) {
+         // 退出小程序是否在后台播放  在全局json中设置 "requiredBackgroundModes": [ "audio"] 就不会报错
       // 播放器播放地址
-      backgroundAudioManager.src = result.data[0].url
-      //得设置title ，不然会报错
-      backgroundAudioManager.title = music.name
-      
+        backgroundAudioManager.src = result.data[0].url
+        //得设置title ，不然会报错
+        backgroundAudioManager.title = music.name
+        backgroundAudioManager.coverImgUrl = music.al.picUrl
+        backgroundAudioManager.singer = music.ar[0].name
+        backgroundAudioManager.epname = music.al.name
+
+        // 保存播放历史
+        // this.savePlayHistory()
+      } 
         // 获取到歌曲信息播放，就开打true
         this.setData({
           isPlaying: true
         })
         // 加载完隐藏掉
         wx.hideLoading()
+
+        // 加载歌词  等到上面获取到歌曲信息就加载歌词
+      wx.cloud.callFunction({
+        name: 'music',
+        data: {
+          musicId,
+          $url: 'lyric',
+        }
+      }).then((res) => {
+        console.log(res)
+        // 初始值
+        let lyric = '暂无歌词'
+        const lrc = JSON.parse(res.result).lrc
+        if (lrc) {
+          // 获取到歌词
+          lyric = lrc.lyric
+        }
+        this.setData({
+          //赋值并传给组件
+          lyric
+        })
+      })
     })
 
     
   },
-  
+  // isLyricShow改变变量
+  onChangeLyricShow () {
+    this.setData({
+      isLyricShow: !this.data.isLyricShow
+    })
+  },
+  // wxml里的方法，event.detail.currentTime自带播放时间(progress-bar传来的)
+  timeUpdate (event) {
+    // pages获取组件的dom方法,然后把方法update传过去 让lyric.js调用
+    this.selectComponent('.lyric').update(event.detail.currentTime)
+  },
+  // progress-bar 组件传过来组件实现联动 播放
+  onPlay () {
+    this.setData({
+      isPlaying: true,
+    })
+  },
+  // progress-bar 组件传过来组件实现联动 暂停
+
+  onPause () {
+    this.setData({
+      isPlaying: false,
+    })
+  },
+
+
   togglePlaying () {
     // 正在播放
     if (this.data.isPlaying) {

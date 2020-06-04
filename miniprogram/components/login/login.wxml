@@ -1,0 +1,10 @@
+<x-bottom-modal modalShow="{{modalShow}}">
+  <!-- 插槽到bottom-modal -->
+  <view slot="modal-content">
+  <!-- 得写 open-type="getUserInfo"才能获取用户信息  bindgetuserinfo固定写法 -->
+    <button class="login"
+      open-type="getUserInfo"
+      bindgetuserinfo="onGotUserInfo"
+    >获取微信授权信息</button>
+  </view>
+</x-bottom-modal>

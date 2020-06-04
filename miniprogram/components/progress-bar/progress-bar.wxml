@@ -4,13 +4,14 @@
   <view class="control">
   <!-- 可移动区域  movable-view(进度圆点)必须是movable-area(进度区域) 的子-->
     <movable-area class="movable-area">
-    <!--direction方向 daming拖动灵敏度 x移动距离 -->
+    <!--direction方向 daming拖动阻力 x移动距离 -->
+    <!-- bindtouchend="onTouchEnd"拖拽进度条松手的时候触发  bindchange发生变化就触发-->
       <movable-view direction="horizontal" class="movable-view"
         damping="1000" x="{{movableDis}}" bindchange="onChange"
         bindtouchend="onTouchEnd"
       />
     </movable-area>
-    <!-- 进度条粗细stroke-width  activeColor移动后前面的颜色  percent移动距离-->
+    <!-- 进度条粗细stroke-width  activeColor移动后前面的颜色  percent移动距离(白色)-->
     <progress stroke-width="4" backgroundColor="#969696"
     activeColor="#fff" percent="{{progress}}"></progress>
   </view>

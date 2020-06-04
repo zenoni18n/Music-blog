@@ -6,7 +6,9 @@
     "pages/demo/demo",
     "components/playlist/playlist",
     "pages/musiclist/musiclist",
-    "pages/player/player"
+    "pages/player/player",
+    "pages/blog-edit/blog-edit",
+    "pages/blog-comment/blog-comment"
   ],
   
   "requiredBackgroundModes": [
@@ -43,6 +45,6 @@
       }
     ]
   },
-  "sitemapLocation": "sitemap.json",
-  "style": "v2"
+  "sitemapLocation": "sitemap.json"
+  
 }

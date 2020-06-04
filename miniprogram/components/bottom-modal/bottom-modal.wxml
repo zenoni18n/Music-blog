@@ -1,0 +1,9 @@
+<!-- 遮罩层   modalShow是从blog传到login再传到bottom-modal -->
+<view class="modal" hidden="{{!modalShow}}">
+<!-- 底下白色区域 -->
+  <view class="panel">
+      <i class="iconfont icon-shanchu1" bind:tap="onClose"></i>
+      <!-- slot插槽  具名插槽-->
+      <slot name="modal-content"></slot>
+  </view>
+</view>
