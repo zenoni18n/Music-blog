@@ -17,6 +17,7 @@
     <block wx:for="{{blogList}}" wx:key="_id">
       <view class="blog-panel">
         <x-blog-card blog="{{item}}" data-blogid="{{item._id}}" bind:tap="goComment" />
+        <!-- 评论 分享 blogId传给blog-ctrl方便让数据库知道是哪条博客的评论 全局的iconfont,icon-pinglun,icon-fenxiang传到组件-->
         <x-blog-ctrl blogId="{{item._id}}" blog="{{item}}" iconfont="iconfont" icon-pinglun="icon-pinglun" icon-fenxiang="icon-fenxiang" />
       </view>
     </block>

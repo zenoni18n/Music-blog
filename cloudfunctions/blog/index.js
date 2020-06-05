@@ -42,6 +42,7 @@ exports.main = async (event, context) => {
   })
 
   app.router('detail', async (ctx, next) => {
+    // 接收传过来的id
     let blogId = event.blogId
     // 详情查询
     let detail = await blogCollection.where({
@@ -51,11 +52,13 @@ exports.main = async (event, context) => {
     })
     // 评论查询
     const countResult = await blogCollection.count()
+    // 取到评论数量
     const total = countResult.total
     let commentList = {
       data: []
     }
     if (total > 0) {
+      // 一共要取几次
       const batchTimes = Math.ceil(total / MAX_LIMIT)
       const tasks = []
       for (let i = 0; i < batchTimes; i++) {
@@ -63,18 +66,18 @@ exports.main = async (event, context) => {
           .limit(MAX_LIMIT).where({
             blogId
           }).orderBy('createTime', 'desc').get()
+          // 每次取完push到tasks里
         tasks.push(promise)
       }
       if (tasks.length > 0) {
         commentList = (await Promise.all(tasks)).reduce((acc, cur) => {
           return {
+            // 等任务都执行完就一次添加进去
             data: acc.data.concat(cur.data)
           }
         })
       }
-
     }
-
     ctx.body = {
       commentList,
       detail,

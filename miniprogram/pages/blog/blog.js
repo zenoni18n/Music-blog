@@ -191,13 +191,16 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  // onShareAppMessage: function (event) {
-  //   console.log(event)
-  //   let blogObj = event.target.dataset.blog
-  //   return {
-  //     title: blogObj.content,
-  //     path: `/pages/blog-comment/blog-comment?blogId=${blogObj._id}`,
-  //     // imageUrl: ''
-  //   }
-  // }
+  // open-type="share"
+  onShareAppMessage: function (event) {
+    console.log(event)
+    // wxml里ctrl带来的
+    let blogObj = event.target.dataset.blog
+    return {
+      title: blogObj.content,
+      // 转发路径 绝对路径! 
+      path: `/pages/blog-comment/blog-comment?blogId=${blogObj._id}`,
+      // imageUrl: ''
+    }
+  }
 })
