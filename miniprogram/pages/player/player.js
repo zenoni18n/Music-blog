@@ -96,7 +96,7 @@ Page({
         backgroundAudioManager.epname = music.al.name
 
         // 保存播放历史
-        // this.savePlayHistory()
+        this.savePlayHistory()
       } 
         // 获取到歌曲信息播放，就开打true
         this.setData({
@@ -187,6 +187,32 @@ Page({
     }
     this._loadMusicDetail(musiclist[nowPlayingIndex].id)
   },
+
+  // 保存播放历史
+savePlayHistory() {
+  //  当前正在播放的歌曲
+  const music = musiclist[nowPlayingIndex]
+  const openid = app.globalData.openid
+  const history = wx.getStorageSync(openid)
+  // 有没有保存
+  let bHave = false
+  for (let i = 0, len = history.length; i < len; i++) {
+    if (history[i].id == music.id) {
+      // 保存过，就设置为true跳出循环
+      bHave = true
+      break
+    }
+  }
+  // 没保存过
+  if (!bHave) {
+    // 数组头部添加音乐  返回添加的元素
+    history.unshift(music)
+    wx.setStorage({
+      key: openid,
+      data: history,
+    })
+  }
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

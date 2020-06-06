@@ -14,9 +14,12 @@ App({
         traceUser: true,
       })
     }
-
+    // 调用
+    this.getOpenid()
     this.globalData = {
       playingMusicId: -1,
+      openid: -1,
+
     }
   },
   // 用来设置当前播放歌的id 列表中高亮 防止上一首下一首歌单列表高亮没变化
@@ -26,5 +29,18 @@ App({
   
   getPlayMusicId() {
     return this.globalData.playingMusicId
+  },
+  //获取openid
+  getOpenid () {
+    wx.cloud.callFunction({
+      name: 'login'
+    }).then((res) => {
+      const openid = res.result.openid
+      this.globalData.openid = openid
+      // 存储到本地  如果是空的，说明第一次设置存储
+      if (wx.getStorageSync(openid) == '') {
+        wx.setStorageSync(openid, [])
+      }
+    })
   },
 })

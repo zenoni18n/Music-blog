@@ -58,8 +58,8 @@
 				},
 				{
 					"id": 1,
-					"name": "pages/blog-edit/blog-edit",
-					"pathName": "pages/blog/blog",
+					"name": "pages/profile",
+					"pathName": "pages/profile/profile",
 					"query": "",
 					"scene": null
 				}

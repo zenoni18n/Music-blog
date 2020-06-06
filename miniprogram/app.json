@@ -8,7 +8,9 @@
     "pages/musiclist/musiclist",
     "pages/player/player",
     "pages/blog-edit/blog-edit",
-    "pages/blog-comment/blog-comment"
+    "pages/blog-comment/blog-comment",
+    "pages/profile-playhistory/profile-playhistory",
+    "pages/profile-bloghistory/profile-bloghistory"
   ],
   
   "requiredBackgroundModes": [

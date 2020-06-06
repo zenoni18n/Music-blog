@@ -104,22 +104,21 @@ content: '',
         }
       }).then((res) => {
         // 推送模板消息
-//          wx.requestSubscribeMessage({
-//           tmplIds: ['IHUD21KOrwujIljSh5eF2_GNHupXwf_VFm5Gb_qXsCE'],
-//           success: (res) =>{
-//             wx.cloud.callFunction({
-//               name: 'sendMessage',
-//               data: {
-//                 content,
-//                 // formId,
-//                 // 获取别的地方传来的值
-//                 blogId: this.properties.blogId
-//               }
-//             }).then((res) => {
-//               console.log(res)
-//             })
-//            }
-// })
+        //  wx.requestSubscribeMessage({
+        //   tmplIds: ['IHUD21KOrwujIljSh5eF2_GNHupXwf_VFm5Gb_qXsCE'],
+        //   success: (res) =>{
+        //     wx.cloud.callFunction({
+        //       name: 'sendMessage',
+        //       data: {
+        //         content,
+        //         // formId,
+        //         // 获取别的地方传来的值
+        //         blogId: this.properties.blogId
+        //       }
+        //     }).then((res) => {
+        //       console.log(res)
+        //     })
+        //    }})
       })
        
 

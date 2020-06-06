@@ -84,7 +84,8 @@ exports.main = async (event, context) => {
     }
 
   })
-
+  // 查询发布过的博客
+// 云函数自带 
   const wxContext = cloud.getWXContext()
   app.router('getListByOpenid', async (ctx, next) => {
     ctx.body = await blogCollection.where({
@@ -94,8 +95,6 @@ exports.main = async (event, context) => {
         return res.data
       })
   })
-
-
 
   return app.serve()
 }
