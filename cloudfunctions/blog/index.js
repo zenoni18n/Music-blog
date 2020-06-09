@@ -17,7 +17,7 @@ exports.main = async (event, context) => {
   })
   // 封装获取帖子列表
   app.router('list', async(ctx, next) => {
-    // 把穿过来的关键词赋值
+    // 把传过来的关键词赋值
     const keyword = event.keyword
     // 传搜索方式
     let w = {}
