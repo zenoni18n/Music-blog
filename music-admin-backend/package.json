@@ -1,0 +1,20 @@
+{
+  "name": "music-imooc-admin-backend",
+  "version": "1.0.0",
+  "description": "云音乐管理系统后端代码",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-body": "^4.1.0",
+    "koa-router": "^7.4.0",
+    "koa2-cors": "^2.0.6",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
